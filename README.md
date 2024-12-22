@@ -65,3 +65,16 @@ Let's take a look inside the `src` folder
   - if you are setting up your development enviroment, then write the username of your db, password of your db and add in dialselect mention whatever db you are using ex : mariadb , mysql
 
   - If you want to avoid this config file the just go to `src` and run the command `npx sequelize init` the config file will be created automatically
+
+### Regarding Sequelize
+
+- To create db we have to use this command
+
+  - ` npx sequelize db:create`
+
+- To create the table in the db use this command
+
+  - `npx sequelize model:generate --name Airplane --attributes modelNumber:string,capacity:integer `
+
+- To Apply the migration
+  - `npx sequelize db:migrate`
