@@ -6,6 +6,7 @@ const router = express.Router();
 router
   .post("/", AirplaneController.createAirplane)
   .get("/", AirplaneController.getAirplanes)
-  .get("/:id", AirplaneController.getAirplaneById);
+  .get("/:id", AirplaneController.getAirplaneById)
+  .delete("/:id", AirplaneController.destroyAirplane);
 
 module.exports = router;

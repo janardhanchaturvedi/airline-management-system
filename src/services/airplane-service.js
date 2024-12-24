@@ -39,7 +39,26 @@ async function getAirplaneById(id) {
     const airplane = await airplaneRepository.get(id);
     return airplane;
   } catch (error) {
-    console.log("🚀 ~ getAirplaneById ~ error:", error)
+    console.log("🚀 ~ getAirplaneById ~ error:", error);
+    if (error.statusCode == StatusCodes.NOT_FOUND) {
+      throw new AppError(
+        "The Airplane you requested is not present",
+        error.statusCode
+      );
+    }
+    throw new AppError(
+      "Cannot fetch the data of the airplanes",
+      StatusCodes.INTERNAL_SERVER_ERROR
+    );
+  }
+}
+
+async function destroyAirplane(id) {
+  try {
+    const airplane = await airplaneRepository.destroy(id);
+    return airplane;
+  } catch (error) {
+    console.log("🚀 ~ getAirplaneById ~ error:", error);
     if (error.statusCode == StatusCodes.NOT_FOUND) {
       throw new AppError(
         "The Airplane you requested is not present",

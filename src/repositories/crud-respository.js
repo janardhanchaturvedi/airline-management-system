@@ -41,6 +41,12 @@ class CrudRepository {
       }
       return response;
     } catch (error) {
+      if (error.statusCode == StatusCodes.NOT_FOUND) {
+        throw new AppError(
+          "The Airplane you requested is not present",
+          error.statusCode
+        );
+      }
       Logger.error("Something went wrong in  the CRUD repo : get");
     }
   }
