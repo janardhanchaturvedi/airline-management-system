@@ -39,7 +39,6 @@ async function getAirplaneById(id) {
     const airplane = await airplaneRepository.get(id);
     return airplane;
   } catch (error) {
-    console.log("🚀 ~ getAirplaneById ~ error:", error);
     if (error.statusCode == StatusCodes.NOT_FOUND) {
       throw new AppError(
         "The Airplane you requested is not present",
@@ -64,7 +63,6 @@ async function destroyAirplane(id) {
     }
     return airplane;
   } catch (error) {
-    console.log("🚀 ~ getAirplaneById ~ error:", error);
     if (error.statusCode == StatusCodes.NOT_FOUND) {
       throw new AppError(
         "The Airplane you requested is not present",
@@ -73,6 +71,17 @@ async function destroyAirplane(id) {
     }
     throw new AppError(
       "Cannot fetch the data of the airplanes",
+      StatusCodes.INTERNAL_SERVER_ERROR
+    );
+  }
+}
+
+async function updateAirplane(id, data) {
+  try {
+    const response = await airplaneRepository.update()
+  } catch (error) {
+    throw new AppError(
+      "Cannot Update the data of the airplanes",
       StatusCodes.INTERNAL_SERVER_ERROR
     );
   }
