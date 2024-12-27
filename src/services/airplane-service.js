@@ -79,7 +79,6 @@ async function destroyAirplane(id) {
 async function updateAirplane(id, data) {
   try {
     const response = await airplaneRepository.update(id, data);
-    console.log("🚀 ~ updateAirplane ~ response:", response)
     if (!response) {
       throw new AppError(
         "Cannot Update the date of the airplane",
