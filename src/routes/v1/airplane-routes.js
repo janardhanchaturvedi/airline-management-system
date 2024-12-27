@@ -7,6 +7,7 @@ router
   .post("/", AirplaneController.createAirplane)
   .get("/", AirplaneController.getAirplanes)
   .get("/:id", AirplaneController.getAirplaneById)
-  .delete("/:id", AirplaneController.destroyAirplane);
+  .delete("/:id", AirplaneController.destroyAirplane)
+  .patch("/:id", AirplaneController.updateAirplane);
 
 module.exports = router;

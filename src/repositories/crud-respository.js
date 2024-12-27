@@ -67,8 +67,10 @@ class CrudRepository {
           id: id,
         },
       });
+      console.log("🚀 ~ CrudRepository ~ update ~ response:", response)
       return response;
     } catch (error) {
+      console.log("🚀 ~ CrudRepository ~ update ~ error:", error)
       Logger.error("Something went wrong in  the CRUD repo : update");
     }
   }

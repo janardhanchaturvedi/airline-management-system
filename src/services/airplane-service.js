@@ -78,7 +78,16 @@ async function destroyAirplane(id) {
 
 async function updateAirplane(id, data) {
   try {
-    const response = await airplaneRepository.update()
+    const response = await airplaneRepository.update(id, data);
+    console.log("🚀 ~ updateAirplane ~ response:", response)
+    if (!response) {
+      throw new AppError(
+        "Cannot Update the date of the airplane",
+        StatusCodes.NOT_FOUND
+      );
+    }
+
+    return response;
   } catch (error) {
     throw new AppError(
       "Cannot Update the data of the airplanes",
@@ -92,4 +101,5 @@ module.exports = {
   getAirplanes,
   getAirplaneById,
   destroyAirplane,
+  updateAirplane,
 };
