@@ -8,7 +8,7 @@ async function createAirport(data) {
     const airpots = await airportRepository.create(data);
     return airpots;
   } catch (error) {
-    if (error.name === `SequelizeValidationError`) {
+    if (error.name === `SequelizeValidationError`|| `SequelizeUniqueConstraintError`) {
       let explanation = [];
       error.errors.forEach((e) => {
         explanation.push(e.message);

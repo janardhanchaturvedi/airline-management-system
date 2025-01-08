@@ -9,6 +9,6 @@ router.get("/info", InfoController.getInfo);
 
 router.use("/airplanes", airPlaneRoutes);
 router.use("/city", cityRoutes);
-router.use("/airport", airportRoutes);
+router.use("/airports", airportRoutes);
 
 module.exports = router;
