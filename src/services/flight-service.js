@@ -4,12 +4,10 @@ const { FlightRepository } = require("../repositories");
 
 const flightRepository = new FlightRepository();
 async function createFlight(data) {
-  console.log("🚀 ~ createFlight ~ data:", data)
   try {
     const flight = await flightRepository.create(data);
     return flight;
   } catch (error) {
-    console.log("🚀 ~ createFlight ~ error:", error)
     if (
       error.name === `SequelizeValidationError` ||
       `SequelizeUniqueConstraintError`
