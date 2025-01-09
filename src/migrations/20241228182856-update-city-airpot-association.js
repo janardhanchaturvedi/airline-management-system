@@ -5,7 +5,7 @@ module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.addConstraint("Airports", {
       type: "FOREIGN KEY",
-      fields: ["city_id"],
+      fields: ["cityId"],
       name: "city_fkey_constraints",
       references: {
         table: "Cities",
