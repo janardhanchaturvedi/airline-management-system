@@ -50,7 +50,7 @@ async function getFlights(req, res) {
     return res.status(StatusCodes.OK).json(SuccessResponse);
   } catch (error) {
     ErrorResponse.error = error;
-    return res.status(error.statusCode).json(ErrorResponse);
+    return res.status(error?.statusCode ?? 400).json(ErrorResponse);
   }
 }
 
