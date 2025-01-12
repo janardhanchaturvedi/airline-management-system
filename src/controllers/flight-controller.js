@@ -5,10 +5,19 @@ const { FlightService } = require("../services");
 
 /**
  * POST : /airplanes
- * req-body : {name  : 'London' }
+ * req-body : {
+      "flightNumber": "CZI02445" ,
+      "airplainId": 2,
+      "departureAirportId": "VNS",
+      "arrivalAirportId": "STV",
+      "arrivalTime": "2025-01-12 16:34:08" ,
+      "departureTime": "2025-01-12 20:44:08" ,
+      "price": 11000,
+      "boardingGate": "1A",
+      "totalSeats": 250 
+    }
  */
 async function createFlight(req, res) {
-  console.log("🚀 ~ createFlight ~ req:", req , req.body.airplainId)
   try {
     const city = await FlightService.createFlight({
       flightNumber: req.body.flightNumber,
@@ -24,10 +33,25 @@ async function createFlight(req, res) {
     SuccessResponse.data = city;
     return res.status(StatusCodes.CREATED).json(SuccessResponse);
   } catch (error) {
-    console.log("🚀 ~ createFlight ~ error:", error)
     ErrorResponse.error = error;
     return res.status(error.statusCode).json(ErrorResponse);
   }
 }
 
-module.exports = { createFlight };
+async function getFlights(req, res) {
+  try {
+    const flights = await FlightService.getAllFlights(req.query);
+    if (!flights || !flights.length) {
+      ErrorResponse.error = "Flights not found";
+      ErrorResponse.message = "Flights doesn't match to given creteria";
+      return res.status(StatusCodes.NOT_FOUND).json(ErrorResponse);
+    }
+    SuccessResponse.data = flights;
+    return res.status(StatusCodes.OK).json(SuccessResponse);
+  } catch (error) {
+    ErrorResponse.error = error;
+    return res.status(error.statusCode).json(ErrorResponse);
+  }
+}
+
+module.exports = { createFlight, getFlights };
