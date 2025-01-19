@@ -1,6 +1,7 @@
 "use strict";
 const { Model } = require("sequelize");
 const { Enums } = require("../utils/common");
+const { Airplane } = require("./airplane");
 const { BUSINESS, ECONOMY, PREMIUM_ECONOMY, FIRST_CLASS } = Enums.SEAT_TYPE;
 module.exports = (sequelize, DataTypes) => {
   class Seats extends Model {
@@ -11,6 +12,10 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      this.belongsTo(models.Airplane, {
+        foreignKey: "airplaneId",
+        as: "airplaneDetail",
+      });
     }
   }
   Seats.init(

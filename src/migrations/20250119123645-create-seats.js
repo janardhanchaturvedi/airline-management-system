@@ -15,6 +15,11 @@ module.exports = {
       airplaneId: {
         type: Sequelize.INTEGER,
         allowNull: false,
+        references: {
+          model: "Airplanes",
+          key: "id",
+        },
+        onDelete: "CASCADE",
       },
       row: {
         type: Sequelize.INTEGER,
@@ -25,7 +30,7 @@ module.exports = {
         allowNull: false,
       },
       type: {
-        type: Sequelize.STRING,
+        type: Sequelize.ENUM,
         values: [BUSINESS, ECONOMY, PREMIUM_ECONOMY, FIRST_CLASS],
         defaultValue: ECONOMY,
         allowNull: false,
