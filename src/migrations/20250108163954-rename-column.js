@@ -5,7 +5,6 @@ module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.renameColumn(
       "Airports",
-      "city_id",
       "cityId"
     );
   },
