@@ -24,7 +24,9 @@ function validateCreateRequest(req, res, next) {
   if (!req.body.departureAirportId) {
     ErrorResponse.message = "Something went wrong while creating Flight";
     ErrorResponse.error = new AppError(
-      ["departureAirportId not found in the oncoming request in the correct form"],
+      [
+        "departureAirportId not found in the oncoming request in the correct form",
+      ],
       StatusCodes.BAD_REQUEST
     );
     return res.status(StatusCodes.BAD_REQUEST).json(ErrorResponse);
@@ -32,7 +34,9 @@ function validateCreateRequest(req, res, next) {
   if (!req.body.arrivalAirportId) {
     ErrorResponse.message = "Something went wrong while creating Flight";
     ErrorResponse.error = new AppError(
-      ["arrivalAirportId name not found in the oncoming request in the correct form"],
+      [
+        "arrivalAirportId name not found in the oncoming request in the correct form",
+      ],
       StatusCodes.BAD_REQUEST
     );
     return res.status(StatusCodes.BAD_REQUEST).json(ErrorResponse);
@@ -48,7 +52,9 @@ function validateCreateRequest(req, res, next) {
   if (!req.body.departureTime) {
     ErrorResponse.message = "Something went wrong while creating Flight";
     ErrorResponse.error = new AppError(
-      ["departureTime name not found in the oncoming request in the correct form"],
+      [
+        "departureTime name not found in the oncoming request in the correct form",
+      ],
       StatusCodes.BAD_REQUEST
     );
     return res.status(StatusCodes.BAD_REQUEST).json(ErrorResponse);
@@ -73,6 +79,28 @@ function validateCreateRequest(req, res, next) {
   next();
 }
 
+function validateUpdateSeat(req, res, next) {
+  if (!req.params.id) {
+    ErrorResponse.message = "Something went wrong while Updating the Seats";
+    ErrorResponse.error = new AppError(
+      ["flightId not found in the oncoming request in the correct form"],
+      StatusCodes.BAD_REQUEST
+    );
+    return res.status(StatusCodes.BAD_REQUEST).json(ErrorResponse);
+  }
+  if (!req.body.seats) {
+    ErrorResponse.message = "Something went wrong while Updating the Seats ";
+    ErrorResponse.error = new AppError(
+      ["Total Seats not found in the oncoming request in the correct form"],
+      StatusCodes.BAD_REQUEST
+    );
+    return res.status(StatusCodes.BAD_REQUEST).json(ErrorResponse);
+  }
+
+  next();
+}
+
 module.exports = {
   validateCreateRequest,
+  validateUpdateSeat,
 };

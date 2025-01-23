@@ -70,4 +70,24 @@ async function getFligtDetails(req, res) {
     return res.status(error?.statusCode ?? 400).json(ErrorResponse);
   }
 }
-module.exports = { createFlight, getFlights , getFligtDetails };
+
+async function updateSeatsData(req, res) {
+  const { id } = req.params;
+
+  try {
+    const response = await FlightService.updateSeats({
+      flightId: id,
+      seats: req.body.seats,
+      dec: req.body.dec,
+    });
+
+    SuccessResponse.message = "Seats Updates Sucessfully";
+    SuccessResponse.data = response;
+
+    return res.status(StatusCodes.OK).json(SuccessResponse);
+  } catch (error) {
+    ErrorResponse.error = error;
+    return res.status(error?.StatusCodes ?? 400).json(ErrorResponse);
+  }
+}
+module.exports = { createFlight, getFlights, getFligtDetails, updateSeatsData };

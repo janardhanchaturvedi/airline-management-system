@@ -1,5 +1,5 @@
 const CrudRepository = require("./crud-respository");
-const { Flight , Airport ,Airplane, Sequelize , City  } = require("../models");
+const { Flight, Airport, Airplane, Sequelize, City } = require("../models");
 class FlightRepository extends CrudRepository {
   constructor() {
     super(Flight);
@@ -11,35 +11,57 @@ class FlightRepository extends CrudRepository {
         {
           model: Airplane,
           required: true,
-          as : "AirplaneDetails",
+          as: "AirplaneDetails",
         },
         {
           model: Airport,
           required: true,
-          as : 'departureAirportDetails',
-          on : {
-            col1 : Sequelize.where(Sequelize.col("Flight.departureAirportId") , "=" , Sequelize.col("departureAirportDetails.code"))
+          as: "departureAirportDetails",
+          on: {
+            col1: Sequelize.where(
+              Sequelize.col("Flight.departureAirportId"),
+              "=",
+              Sequelize.col("departureAirportDetails.code")
+            ),
           },
-          include : {
-            model :City,
-            required : true
-          }
+          include: {
+            model: City,
+            required: true,
+          },
         },
         {
           model: Airport,
           required: true,
-          as : 'arrivalAirportDetails',
-          on : {
-            col1 : Sequelize.where(Sequelize.col("Flight.arrivalAirportId") , "=" , Sequelize.col("arrivalAirportDetails.code"))
+          as: "arrivalAirportDetails",
+          on: {
+            col1: Sequelize.where(
+              Sequelize.col("Flight.arrivalAirportId"),
+              "=",
+              Sequelize.col("arrivalAirportDetails.code")
+            ),
           },
-          include : {
-            model :City,
-            required : true
-          }
-        }
+          include: {
+            model: City,
+            required: true,
+          },
+        },
       ],
     });
     return response;
+  }
+
+  async updateRemainingSeats(flightId, seats, dec = true) {
+    const flight = await Flight.findByPk(flightId);
+    if (dec && flight) {
+      const response = await flight.decrement("totalSeats", { by: seats });
+      return response;
+    } else {
+      const response = await flight.increment("totalSeats", {
+        returning: true,
+        by: seats,
+      });
+      return response;
+    }
   }
 }
 

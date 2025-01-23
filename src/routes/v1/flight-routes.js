@@ -12,6 +12,7 @@ router.post(
 
 router.get("/", FlightController.getFlights);
 
-router.get("/:id", FlightController.getFligtDetails    );
+router.get("/:id", FlightController.getFligtDetails);
 
+router.patch("/:id/seats", FlightMiddleware.validateUpdateSeat , FlightController.updateSeatsData);
 module.exports = router;
