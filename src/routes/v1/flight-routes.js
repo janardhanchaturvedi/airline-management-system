@@ -12,4 +12,6 @@ router.post(
 
 router.get("/", FlightController.getFlights);
 
+router.get("/:id", FlightController.getFligtDetails    );
+
 module.exports = router;

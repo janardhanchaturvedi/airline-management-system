@@ -54,4 +54,20 @@ async function getFlights(req, res) {
   }
 }
 
-module.exports = { createFlight, getFlights };
+async function getFligtDetails(req, res) {
+  const { id } = req.params;
+  try {
+    const flightDetail = await FlightService.getFlight(id);
+    if (!flightDetail) {
+      ErrorResponse.error = "Flight not found";
+      return res.status(StatusCodes.NOT_FOUND).json(ErrorResponse);
+    }
+    SuccessResponse.data = flightDetail;
+    SuccessResponse.message = "flight Details fetched sucessfully";
+    return res.status(StatusCodes.OK).json(SuccessResponse);
+  } catch (error) {
+    ErrorResponse.error = error;
+    return res.status(error?.statusCode ?? 400).json(ErrorResponse);
+  }
+}
+module.exports = { createFlight, getFlights , getFligtDetails };
